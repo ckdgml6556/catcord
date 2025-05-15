@@ -1,0 +1,1 @@
+enum PermissionState { initial, granted, denied, permanentlyDenied}
