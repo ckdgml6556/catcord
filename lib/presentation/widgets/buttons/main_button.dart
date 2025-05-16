@@ -18,7 +18,7 @@ class MainButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onRequest,
       style: ElevatedButton.styleFrom(
-        backgroundColor: isEnable ?  AppColors.cigMainGreen: AppColors.disableTextBlack,
+        backgroundColor: isEnable ?  AppColors.cigMainGreen: AppColors.disableGray,
         foregroundColor: isEnable ?AppColors.white :AppColors.disableTextBlack,
         minimumSize: const Size.fromHeight(48),
       ),
