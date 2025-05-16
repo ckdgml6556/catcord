@@ -1,18 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../domain/usecases/request_location_permission_usecase.dart';
+import '../../domain/usecases/request_permission_usecase.dart';
 import '../../data/repositories/permission_repository_impl.dart';
 import '../../domain/entities/permission_state.dart';
 
-
-
 class PermissionViewModel extends StateNotifier<PermissionState> {
-  final RequestLocationPermissionUseCase _useCase;
+  final RequestLocationPermissionUseCase permissionUseCase;
 
-  PermissionViewModel(this._useCase) : super(PermissionState.initial);
+  PermissionViewModel(this.permissionUseCase) : super(PermissionState.initial);
 
-  Future<void> requestPermission() async {
-    final granted = await _useCase();
-    state = granted;
+  Future<void> requestAllPermission() async {
+    state = await permissionUseCase.reqeustAllPermission();
   }
 }
 

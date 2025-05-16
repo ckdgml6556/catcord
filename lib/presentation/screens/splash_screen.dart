@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:catcord/constants/app_strings.dart';
-import 'package:catcord/presentation/widgets/default_dialog.dart';
-import 'package:catcord/presentation/widgets/logo_form.dart';
+import 'package:catcord/presentation/widgets/dialog/default_dialog.dart';
+import 'package:catcord/presentation/widgets/images/logo_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../viewmodels/permission_viewmodel.dart';
@@ -25,40 +25,39 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     super.initState();
     // 여기서는 실제 요청 로직을 build 후에 실행되게 함
     Future.microtask(() async {
-      await ref.read(permissionProvider.notifier).requestPermission();
+      await ref.read(permissionProvider.notifier).requestAllPermission();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final permission = ref.watch(permissionProvider);
+    requestPermission();
+
     final size = MediaQuery.of(context).size;
 
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(width: size.width * 0.4, child: const LogoForm()),
+            const SizedBox(height: 20),
+            const CircularProgressIndicator(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void requestPermission(){
+    final permission = ref.watch(permissionProvider);
+    
     // 권한이 허용된 경우
     if (!_navigated && permission == PermissionState.granted) {
       _navigated = true;
       Future.delayed(const Duration(seconds: 1), () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
-        );
-      });
-    }
-
-    if (!_navigated && _requested && permission == PermissionState.permanentlyDenied) {
-      _navigated = true;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (_) => DefaultDialog(
-            title: AppStrings.permissionRequest,
-            dialogMessage: AppStrings.permissionPermanentlyDenied,
-            onConfirm: () {
-              exit(0);
-            },
-          ),
-        );
+        moveToLoginScreen();
       });
     }
 
@@ -73,7 +72,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
             title: AppStrings.permissionRequest,
             dialogMessage: AppStrings.permissionDenied,
             onConfirm: () {
-              exit(0);
+              moveToLoginScreen();
             },
           ),
         );
@@ -84,19 +83,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     if (!_requested && permission != PermissionState.initial) {
       _requested = true;
     }
+  }
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(width: size.width * 0.6, child: const LogoForm()),
-            const SizedBox(height: 20),
-            const CircularProgressIndicator(),
-          ],
-        ),
-      ),
+  void moveToLoginScreen(){
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
     );
   }
 }

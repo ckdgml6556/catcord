@@ -8,6 +8,5 @@ class AppStrings {
   static const String logout = "로그아웃";
 
   static const String permissionRequest = "권한설정";
-  static const String permissionDenied = "권한설정을 거부하셨습니다.\n권한 설정을 허용하셔야 정상적인 사용이 가능합니다.";
-  static const String permissionPermanentlyDenied = "권한 설정 페이지에서 해당앱의 권한을 허용해야 사용 가능합니다.";
+  static const String permissionDenied = "권한 정보를 허영하지 않았습니다.\n일부 기능 사용시 이용이 제한 될 수 있습니다.";
 }

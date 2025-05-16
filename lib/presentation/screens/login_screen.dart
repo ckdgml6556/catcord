@@ -1,7 +1,7 @@
-import 'package:catcord/presentation/widgets/logo_form.dart';
-import 'package:catcord/presentation/widgets/phone_input_section.dart';
+import 'package:catcord/presentation/widgets/images/logo_form.dart';
+import 'package:catcord/presentation/widgets/input/phone_input_section.dart';
 import 'package:catcord/providers/auth_provider.dart'; // provider 불러오기
-import 'package:catcord/presentation/widgets/phone_verify_section.dart';
+import 'package:catcord/presentation/widgets/input/verift_input_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,11 +24,11 @@ class LoginScreen extends ConsumerWidget {
             Align(
               alignment: Alignment.center,
               child: SizedBox(
-                width: size.width * 0.6,
+                width: size.width * 0.4,
                 child: const LogoForm(),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 0),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: PhoneInputSection(
@@ -37,7 +37,7 @@ class LoginScreen extends ConsumerWidget {
               ),
             ),
             if (isCodeSent) ...[
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: PhoneVerifySection(

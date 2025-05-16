@@ -7,4 +7,6 @@ class AppColors {
   static const Color borderGray = Color(0xFFBDBDBD);
   static const Color white = Color(0xFFFFFFFF);
   static const Color cigMainGreen = Color.fromRGBO(10, 119, 65, 1);
+  static const Color disableGray = Color.fromRGBO(224, 224, 224, 1);
+  static const Color disableTextBlack = Color.fromRGBO(114, 114, 114, 1);
 }
