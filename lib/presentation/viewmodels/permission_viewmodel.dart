@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/usecases/request_permission_usecase.dart';
 import '../../data/repositories/permission_repository_impl.dart';
-import '../../domain/entities/permission_state.dart';
+import '../../core/enums/permission_state.dart';
 
 class PermissionViewModel extends StateNotifier<PermissionState> {
   final RequestLocationPermissionUseCase permissionUseCase;

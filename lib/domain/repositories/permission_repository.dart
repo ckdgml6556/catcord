@@ -1,4 +1,4 @@
-import '../../domain/entities/permission_state.dart';
+import '../../core/enums/permission_state.dart';
 
 abstract class PermissionRepository {
   Future<PermissionState> requestCameraPermission();

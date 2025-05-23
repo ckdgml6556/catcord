@@ -1,7 +1,7 @@
 import 'package:permission_handler/permission_handler.dart';
 import '../../domain/repositories/permission_repository.dart';
-import '../../domain/entities/permission_state.dart';
-import '../../utils/logger.dart';
+import '../../core/enums/permission_state.dart';
+import '../../core/utils/logger.dart';
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 

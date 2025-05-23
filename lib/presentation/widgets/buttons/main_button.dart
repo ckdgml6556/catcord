@@ -1,4 +1,4 @@
-import 'package:catcord/constants/meterial.dart';
+import 'package:catcord/core/constants/meterial.dart';
 import 'package:flutter/material.dart';
 
 class MainButton extends StatelessWidget {
@@ -18,7 +18,7 @@ class MainButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onRequest,
       style: ElevatedButton.styleFrom(
-        backgroundColor: isEnable ?  AppColors.cigMainGreen: AppColors.disableGray,
+        backgroundColor: isEnable ?  AppColors.buttonMainColor: AppColors.disableGray,
         foregroundColor: isEnable ?AppColors.white :AppColors.disableTextBlack,
         minimumSize: const Size.fromHeight(48),
       ),

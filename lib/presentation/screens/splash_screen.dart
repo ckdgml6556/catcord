@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:catcord/constants/app_strings.dart';
+import 'package:catcord/core/constants/app_strings.dart';
+import 'package:catcord/core/navigation/navigation_service.dart';
 import 'package:catcord/presentation/widgets/dialog/default_dialog.dart';
 import 'package:catcord/presentation/widgets/images/logo_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../viewmodels/permission_viewmodel.dart';
 import 'login_screen.dart';
-import '../../domain/entities/permission_state.dart';
+import '../../core/enums/permission_state.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -34,6 +35,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     requestPermission();
 
     final size = MediaQuery.of(context).size;
+    final navigationService = NavigationService();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -57,7 +59,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     if (!_navigated && permission == PermissionState.granted) {
       _navigated = true;
       Future.delayed(const Duration(seconds: 1), () {
-        moveToLoginScreen();
+        NavigationService().replaceWith(LoginScreen());
       });
     }
 
@@ -69,10 +71,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
           context: context,
           barrierDismissible: false,
           builder: (_) => DefaultDialog(
-            title: AppStrings.permissionRequest,
-            dialogMessage: AppStrings.permissionDenied,
+            title: AppStrings.permissionRequestTitle,
+            dialogMessage: AppStrings.permissionDeniedMessage,
             onConfirm: () {
-              moveToLoginScreen();
+              NavigationService().replaceWith(LoginScreen());
             },
           ),
         );
@@ -83,12 +85,5 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     if (!_requested && permission != PermissionState.initial) {
       _requested = true;
     }
-  }
-
-  void moveToLoginScreen(){
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const LoginScreen()),
-    );
   }
 }

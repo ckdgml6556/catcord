@@ -1,5 +1,5 @@
 import '../repositories/permission_repository.dart';
-import '../../domain/entities/permission_state.dart';
+import '../../core/enums/permission_state.dart';
 
 class RequestLocationPermissionUseCase {
   final PermissionRepository repository;

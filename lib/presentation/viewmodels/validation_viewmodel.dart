@@ -1,24 +1,34 @@
-import 'package:catcord/data/repositories/validation_repository.impl.dart';
-import 'package:catcord/domain/usecases/validation_usecase.dart';
+import 'package:catcord/data/repositories/validation_repository_impl.dart';
+import 'package:catcord/domain/usecases/validation_usercase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
 class ValidationViewModel extends StateNotifier<bool> {
-  final ValidationUsecase validUseCase;
+  final ValidationUsercase validationUsercase;
 
-  ValidationViewModel(this.validUseCase) : super(false);
+  ValidationViewModel(this.validationUsercase) : super(false);
 
-  Future<void> checkPhoneString(final String phoneNumber) async {
-    state = await validUseCase.checkPhoneString(phoneNumber);
+  Future<void> checkEmail(final String phoneNumber) async {
+    state = await validationUsercase.validateEmailAddress(phoneNumber);
   }
 
-  Future<void> checkVerifyCode(final String code) async {
-    state = await validUseCase.checkCodeString(code);
+  Future<void> checkPassword(final String password) async {
+    state = await validationUsercase.validatePassword(password);
+  }
+
+    Future<void> checkMatchPasswords(final String pw1, final String pw2) async {
+    state = await validationUsercase.validateMatchPassword(pw1, pw2);
   }
 }
 
-final validationProvider = StateNotifierProvider<ValidationViewModel, bool>((ref) {
-  final repository = ValideRepositoryImpl(); // 실제 구현체
-  final useCase = ValidationUsecase(repository);
+final validEmailProvider = StateNotifierProvider<ValidationViewModel, bool>((ref) {
+  final repository = ValidationRepositoryImpl(); // 실제 구현체
+  final useCase = ValidationUsercase(repository);
+  return ValidationViewModel(useCase);
+});
+
+final validPasswordProvider = StateNotifierProvider<ValidationViewModel, bool>((ref) {
+  final repository = ValidationRepositoryImpl(); // 실제 구현체
+  final useCase = ValidationUsercase(repository);
   return ValidationViewModel(useCase);
 });

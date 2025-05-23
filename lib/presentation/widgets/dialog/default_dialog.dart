@@ -18,3 +18,20 @@ class DefaultDialog extends StatelessWidget {
     );
   }
 }
+
+void showDefaultDialog({
+  required BuildContext context,
+  required String title,
+  required String message,
+  required VoidCallback onConfirm,
+}) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (_) => DefaultDialog(
+      title: title,
+      dialogMessage: message,
+      onConfirm: onConfirm,
+    ),
+  );
+}

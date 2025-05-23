@@ -1,4 +1,5 @@
 // main.dart
+import 'package:catcord/core/navigation/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'presentation/screens/splash_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,6 +23,7 @@ class CatCordApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const SplashScreen(),
+      navigatorKey: NavigationService().navigatorKey, // 싱글턴 키 연결
     );
   }
 }
